@@ -113,6 +113,7 @@ export async function performAnalysis({
       facility.provider_id ||
       facility.federal_provider_number;
     const normalizedCcn = ccn ? String(ccn).padStart(6, "0") : null;
+    const ccnKey = normalizedCcn || ccn || null;
     let placeId =
       facility.google_place_id ||
       facility.google_placeid ||
@@ -123,13 +124,13 @@ export async function performAnalysis({
 
     let quality = {};
     try {
-      quality = await fetchQualityMetrics(ccn);
+      quality = await fetchQualityMetrics(ccnKey);
     } catch (err) {
       console.warn("CMS metrics fetch failed:", err.message);
     }
 
-    const historical = ccn ? historicalSnfTimelines[ccn]?.years || {} : {};
-    const regulatory = ccn ? historicalRegulatory[ccn] || null : null;
+    const historical = ccnKey ? historicalSnfTimelines[ccnKey]?.years || {} : {};
+    const regulatory = ccnKey ? historicalRegulatory[ccnKey] || null : null;
     if (!placeId && googlePlaceResolver) {
       const resolved = await googlePlaceResolver.getPlaceId(facility);
       if (resolved?.place_id) {
