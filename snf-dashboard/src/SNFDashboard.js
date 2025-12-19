@@ -35,6 +35,10 @@ const metricGroupLabels = {
   utilization: "Utilization & Access",
 };
 
+const API_BASE =
+  (process.env.REACT_APP_API_URL && process.env.REACT_APP_API_URL.replace(/\/$/, "")) ||
+  "http://localhost:8080";
+
 const formatNumber = (value, fractionDigits = 1) => {
   if (value === null || value === undefined || Number.isNaN(value)) return "—";
   return Number(value).toFixed(fractionDigits);
@@ -131,7 +135,7 @@ const SNFDashboard = () => {
     const controller = new AbortController();
     const fetchSuggestions = async () => {
       try {
-        const res = await fetch(`http://localhost:8080/api/hospitals/search?q=${encodeURIComponent(hospitalQuery)}`, {
+        const res = await fetch(`${API_BASE}/api/hospitals/search?q=${encodeURIComponent(hospitalQuery)}`, {
           signal: controller.signal,
         });
         if (res.ok) {
@@ -155,7 +159,7 @@ const SNFDashboard = () => {
     setLoading(true);
     setError(null);
     try {
-      const response = await fetch("http://localhost:8080/api/analyze", {
+      const response = await fetch(`${API_BASE}/api/analyze`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ hospitalName: selectedHospital.hospital_name }),
@@ -212,7 +216,7 @@ const SNFDashboard = () => {
     setChatLoading(true);
     try {
       const outgoingHistory = [...chatHistory, { role: "user", text: question }];
-      const res = await fetch("http://localhost:8080/api/chat", {
+      const res = await fetch(`${API_BASE}/api/chat`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
