@@ -1,0 +1,20 @@
+export const hospitalLocations = {
+  "Bristol Regional Medical Center": { lat: 36.5951, lon: -82.1887 },
+  "Dickenson Community Hospital": { lat: 37.1554, lon: -82.4548 },
+  "Franklin Woods Community Hospital": { lat: 36.3313, lon: -82.4019 },
+  "Greeneville Community Hospital East": { lat: 36.1653, lon: -82.8106 },
+  "Hancock County Hospital": { lat: 36.5304, lon: -83.2066 },
+  "Hawkins County Memorial Hospital": { lat: 36.4104, lon: -82.9319 },
+  "Holston Valley Medical Center": { lat: 36.5484, lon: -82.5618 },
+  "Indian Path Community Hospital": { lat: 36.5504, lon: -82.5401 },
+  "Johnson City Medical Center": { lat: 36.3089, lon: -82.3801 },
+  "Johnson County Community Hospital": { lat: 36.4464, lon: -81.8223 },
+  "Johnston Memorial Hospital": { lat: 36.7056, lon: -81.9827 },
+  "Lee County Community Hospital": { lat: 36.6778, lon: -83.1303 },
+  "Lonesome Pine Hospital": { lat: 36.9465, lon: -82.6265 },
+  "Norton Community Hospital": { lat: 36.9351, lon: -82.6293 },
+  "Russell County Hospital": { lat: 36.9437, lon: -82.0984 },
+  "Smyth County Community Hospital": { lat: 36.8329, lon: -81.5221 },
+  "Sycamore Shoals Hospital": { lat: 36.3328, lon: -82.2285 },
+  "Unicoi County Hospital": { lat: 36.1314, lon: -82.3337 }
+};

@@ -1,0 +1,85 @@
+// Prisma schema for replacing filesystem caches with PostgreSQL storage.
+// All mutable data should live in Postgres; CSVs remain as seed inputs only.
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Hospital {
+  id                String   @id @db.Text
+  hospital_name     String   @db.Text
+  address           String   @db.Text
+  city              String   @db.Text
+  state             String   @db.Text
+  zip_code          String   @db.Text
+  county_name       String   @db.Text
+  phone_number      String   @db.Text
+  hospital_type     String?  @db.Text
+  hospital_ownership String? @db.Text
+  emergency_services String? @db.Text
+  latitude          Float?
+  longitude         Float?
+  payload           Json
+
+  created_at        DateTime @default(now())
+  updated_at        DateTime @updatedAt
+}
+
+model Snf {
+  ccn               String   @id @db.Text
+  facility_name     String   @db.Text
+  address           String   @db.Text
+  city              String   @db.Text
+  state             String   @db.Text
+  zip_code          String   @db.Text
+  county_name       String   @db.Text
+  phone_number      String   @db.Text
+  ownership_type    String?  @db.Text
+  latitude          Float?
+  longitude         Float?
+  composite_score   Float?
+  overall_rating    Float?
+  health_inspection_rating Float?
+  staffing_rating   Float?
+  qm_rating         Float?
+  payload           Json
+
+  created_at        DateTime @default(now())
+  updated_at        DateTime @updatedAt
+}
+
+model GeocodeCache {
+  key        String   @id @db.Text // normalized address key
+  lat        Float?
+  lon        Float?
+  provider   String?  @db.Text
+  payload    Json?
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+}
+
+model GooglePlaceCache {
+  key              String   @id @db.Text // cache key built from CCN or name+address
+  place_id         String?  @db.Text
+  name             String?  @db.Text
+  formatted_address String? @db.Text
+  location         Json?
+  resolved_at      DateTime?
+
+  created_at       DateTime @default(now())
+  updated_at       DateTime @updatedAt
+}
+
+model GoogleReviewsSnapshot {
+  place_id    String   @id @db.Text
+  snapshot    Json
+  fetched_at  DateTime
+
+  created_at  DateTime @default(now())
+  updated_at  DateTime @updatedAt
+}
