@@ -12,7 +12,6 @@ import { norm } from "../utils/strings.js";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const USE_LOCAL_HOSPITAL_FALLBACK = process.env.USE_LOCAL_HOSPITAL_FALLBACK !== "0";
-const USE_LOCAL_HOSPITAL_FALLBACK = process.env.USE_LOCAL_HOSPITAL_FALLBACK !== "0";
 
 function toNumber(value) {
   if (value === null || value === undefined || value === "") return null;
